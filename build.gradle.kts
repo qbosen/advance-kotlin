@@ -7,7 +7,7 @@ group = "top.abosen"
 version = "1.0-SNAPSHOT"
 
 repositories {
-//    maven { url("http://maven.aliyun.com/nexus/content/groups/public") }
+    maven { url = uri("http://maven.aliyun.com/nexus/content/groups/public") }
     mavenCentral()
 }
 

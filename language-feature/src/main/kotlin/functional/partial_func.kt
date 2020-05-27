@@ -20,22 +20,22 @@ class PartialFunction<in P1, out R>(val defineAt: (P1) -> Boolean, val f: (P1) -
 
 data class MeetEvent(val date: DayOfWeek, val greeting: String)
 
-val Boss = {
+val Boss = run {
     val defineAt: (MeetEvent) -> Boolean = { it.date == DayOfWeek.MONDAY }
     val handler: (MeetEvent) -> String = { "Boss\t>>It's ${it.date.name}! ${it.greeting}! Hurry Up!" }
     PartialFunction(defineAt, handler)
-}()
+}
 
-val Worker = {
+val Worker = run {
     val defineAt: (MeetEvent) -> Boolean = { it.date != DayOfWeek.SATURDAY && it.date != DayOfWeek.SUNDAY }
     val handler: (MeetEvent) -> String = { "Worker\t>>It's ${it.date.name}! ${it.greeting}! I have to work!" }
     PartialFunction(defineAt, handler)
-}()
-val Programmer = {
+}
+val Programmer = run {
     val defineAt: (MeetEvent) -> Boolean = { true }
     val handler: (MeetEvent) -> String = { "Programmer\t>>It's ${it.date.name}! ${it.greeting}! Work Everyday!" }
     PartialFunction(defineAt, handler)
-}()
+}
 
 object PartialFunctionMonoid : PlusableMonoid<PartialFunction<MeetEvent, String>> {
     override val zero: PartialFunction<MeetEvent, String> = PartialFunction({ false }, { "" })

@@ -34,14 +34,14 @@ object StdIOMonad : MonadR<StdIO.K> {
 }
 
 fun <A> perform(stdIO: StdIO<A>): A {
-    fun <C, D> runFlatMap(fm: FlatMap<C, D>) {
-        perform(fm.f(perform(fm.fa)))
+    fun <C, D> runFlatMap(fm: FlatMap<C, D>): D {
+        return perform(fm.f(perform(fm.fa)))
     }
     return when (stdIO) {
         is ReadLine -> readLine() as A
         is Pure<A> -> stdIO.a
         is WriteLine -> println(stdIO.line) as A
-        is FlatMap<*, A> -> runFlatMap(stdIO) as A
+        is FlatMap<*, A> -> runFlatMap(stdIO)
     }
 }
 

@@ -40,19 +40,19 @@ fun readInt(): StdIO<Option<Int>> {
     }
 }
 
-fun addOption(oa: Option<Int>, ob: Option<Int>): () -> Kind<Option.K, Int> = {
-    OptionMonad.run {
+fun addOption(oa: Option<Int>, ob: Option<Int>): Option<Int> {
+    return OptionMonad.run {
         oa.flatMap { a -> ob.map { b -> a + b } }
-    }
+    }.unwrap()
 }
 
-fun errorHandleWithOption() {
-    StdIOMonad.run {
+fun errorHandleWithOption() :Kind<StdIO.K, Unit>{
+    return StdIOMonad.run {
         readInt().flatMap { oi ->
             readInt().flatMap { oj ->
                 val display = when (val r = addOption(oi, oj)) {
                     is Some<*> -> r.v.toString()
-                    else -> ""
+                    is None -> ""
                 }
                 StdIO.write(display)
             }
@@ -60,4 +60,6 @@ fun errorHandleWithOption() {
     }
 }
 
-
+fun main() {
+    perform(errorHandleWithOption().unwrap())
+}

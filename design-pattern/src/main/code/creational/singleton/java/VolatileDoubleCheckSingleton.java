@@ -1,18 +1,15 @@
 package creational.singleton.java;
 
-import creational.singleton.IdGenerator;
-
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * @author qiubaisen
  * @date 2020/6/22
  */
-public class VolatileDoubleCheckSingleton implements IdGenerator {
+public class VolatileDoubleCheckSingleton {
     // volatile 确保对象空间分配完成
     private static volatile VolatileDoubleCheckSingleton instance;
-    private final AtomicLong idGenerator;
+    private long id = 0;
 
     private VolatileDoubleCheckSingleton() {
         // 模拟一个复杂的初始化过程
@@ -21,7 +18,6 @@ public class VolatileDoubleCheckSingleton implements IdGenerator {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        this.idGenerator = new AtomicLong();
     }
 
     public static VolatileDoubleCheckSingleton getInstance() {
@@ -39,9 +35,8 @@ public class VolatileDoubleCheckSingleton implements IdGenerator {
         return instance;
     }
 
-    @Override
     public long getId() {
-        return idGenerator.incrementAndGet();
+        return ++id;
     }
 
 }

@@ -1,9 +1,6 @@
 package creational.singleton.java;
 
-import creational.singleton.IdGenerator;
-
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * 饿汉式
@@ -11,9 +8,9 @@ import java.util.concurrent.atomic.AtomicLong;
  * @author qiubaisen
  * @date 2020/6/22
  */
-public class EagerSingleton implements IdGenerator {
+public class EagerSingleton {
     private static final EagerSingleton instance = new EagerSingleton();
-    private final AtomicLong idGenerator;
+    private long id;
 
     private EagerSingleton() {
         // 模拟一个复杂的初始化过程
@@ -22,15 +19,13 @@ public class EagerSingleton implements IdGenerator {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        this.idGenerator = new AtomicLong();
     }
 
     public static EagerSingleton getInstance() {
         return instance;
     }
 
-    @Override
-    public long getId(){
-        return idGenerator.incrementAndGet();
+    public long getId() {
+        return ++id;
     }
 }

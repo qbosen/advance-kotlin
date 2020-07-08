@@ -1,19 +1,14 @@
 package creational.singleton.java;
 
-import creational.singleton.IdGenerator;
-
-import java.util.concurrent.atomic.AtomicLong;
-
 /**
  * @author qiubaisen
  * @date 2020/6/22
  */
-public enum EnumSingleton implements IdGenerator {
+public enum EnumSingleton {
     INSTANCE;
-    private final AtomicLong idGenerator = new AtomicLong();
+    private long id = 0;
 
-    @Override
-    public long getId(){
-        return idGenerator.incrementAndGet();
+    public long getId() {
+        return ++id;
     }
 }

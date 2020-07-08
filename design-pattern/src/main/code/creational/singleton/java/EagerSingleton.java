@@ -1,6 +1,7 @@
 package creational.singleton.java;
 
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * 饿汉式
@@ -10,7 +11,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class EagerSingleton {
     private static final EagerSingleton instance = new EagerSingleton();
-    private long id;
+    private final AtomicLong idGenerator;
 
     private EagerSingleton() {
         // 模拟一个复杂的初始化过程
@@ -19,13 +20,14 @@ public class EagerSingleton {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        idGenerator = new AtomicLong();
     }
 
     public static EagerSingleton getInstance() {
         return instance;
     }
 
-    public long getId() {
-        return ++id;
+    public long generateId() {
+        return idGenerator.incrementAndGet();
     }
 }

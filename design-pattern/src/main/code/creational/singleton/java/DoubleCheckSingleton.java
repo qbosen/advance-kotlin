@@ -1,6 +1,7 @@
 package creational.singleton.java;
 
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * @author qiubaisen
@@ -8,7 +9,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class DoubleCheckSingleton {
     private static DoubleCheckSingleton instance;
-    private long id = 0;
+    private final AtomicLong idGenerator;
 
     private DoubleCheckSingleton() {
         // 模拟一个复杂的初始化过程
@@ -17,6 +18,7 @@ public class DoubleCheckSingleton {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        idGenerator = new AtomicLong();
     }
 
     public static DoubleCheckSingleton getInstance() {
@@ -31,8 +33,8 @@ public class DoubleCheckSingleton {
         return instance;
     }
 
-    public long getId() {
-        return ++id;
+    public long generateId() {
+        return idGenerator.incrementAndGet();
     }
 
 }

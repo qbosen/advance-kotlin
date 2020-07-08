@@ -1,6 +1,7 @@
 package creational.singleton.java;
 
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * @author qiubaisen
@@ -9,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 public class VolatileDoubleCheckSingleton {
     // volatile 确保对象空间分配完成
     private static volatile VolatileDoubleCheckSingleton instance;
-    private long id = 0;
+    private final AtomicLong idGenerator;
 
     private VolatileDoubleCheckSingleton() {
         // 模拟一个复杂的初始化过程
@@ -18,6 +19,7 @@ public class VolatileDoubleCheckSingleton {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        idGenerator = new AtomicLong();
     }
 
     public static VolatileDoubleCheckSingleton getInstance() {
@@ -35,8 +37,8 @@ public class VolatileDoubleCheckSingleton {
         return instance;
     }
 
-    public long getId() {
-        return ++id;
+    public long generateId() {
+        return idGenerator.incrementAndGet();
     }
 
 }

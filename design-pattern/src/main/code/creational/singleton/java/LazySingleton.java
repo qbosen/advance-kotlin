@@ -23,6 +23,7 @@ public class LazySingleton implements IdGenerator {
         this.idGenerator = new AtomicLong();
     }
 
+    // 未确保线程安全，可加 synchronized 锁
     public static LazySingleton getInstance() {
         if (instance == null) {
             instance = new LazySingleton();

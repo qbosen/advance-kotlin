@@ -10,7 +10,6 @@ import java.util.concurrent.atomic.AtomicLong;
  * @date 2020/6/22
  */
 public class StaticInnerSingleton implements IdGenerator {
-    private static StaticInnerSingleton instance;
     private final AtomicLong idGenerator;
 
     private StaticInnerSingleton() {

@@ -3,6 +3,7 @@ package creational.singleton
 import creational.singleton.java.*
 import creational.singleton.kotlin.Singleton
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
@@ -14,6 +15,7 @@ import kotlin.system.measureTimeMillis
  */
 
 class TestSingletons {
+    @Disabled
     @Test
     fun `简单测试`() {
         measureTimeMillis {
@@ -29,6 +31,7 @@ class TestSingletons {
         }.let(::println)
     }
 
+    @Disabled
     @Test
     fun `多线程环境测试`() {
         val pool = Executors.newFixedThreadPool(5)
